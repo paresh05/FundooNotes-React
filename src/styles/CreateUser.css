@@ -1,0 +1,15 @@
+.paperStyle{
+    padding: 10;
+    height:480px;
+    width: 750px;
+    margin: 20px auto;
+}
+.gridStyle{
+    margin-left: 100px;
+    font-family: sans-serif;
+  };
+.textStyle{
+    margin-top: 40px;
+    margin-bottom: 30px;
+    width: 800px;
+  };
