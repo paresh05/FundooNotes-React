@@ -88,10 +88,12 @@ export class Login extends React.Component {
                   <TextField
                     id="email"
                     label="Email"
+                    type="email"
                     variant="outlined"
                     style={{ width: 330 }}
                     value={this.state.email}
                     onChange={this.emailHandler}
+                    autoFocus
                   />
                 </Grid>
                 <TextField
@@ -132,7 +134,7 @@ export class Login extends React.Component {
                 <Grid item xs={6} style={linkStyle}>
                   <item>
                     <h4>
-                      <Link href="/login">Create Account</Link>
+                      <Link href="/createAccount">Create Account</Link>
                     </h4>
                   </item>
                 </Grid>

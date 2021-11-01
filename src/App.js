@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Route path="/login" exact component={CreateUser} />
+        <Route path="/createAccount" exact component={CreateUser} />
         <Route path="/" exact component={Login} />
       </Router>
     </div>
