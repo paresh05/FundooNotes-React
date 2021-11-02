@@ -9,6 +9,7 @@ import {
   Link,
   FormHelperText,
 } from "@material-ui/core";
+import userConnect from "../service/RegistrationApi";
 import RainbowText from "react-rainbow-text";
 import { createUserSchema } from "./Validation";
 import logo from "../assets/Logo.PNG";
@@ -31,11 +32,29 @@ export class CreateUser extends React.Component {
     this.toggleShow = this.toggleShow.bind(this);
   }
   onSubmit(values, props) {
-    alert(
-      `${values.firstName} ${values.lastName}  Registered Successfully !!!!`
-    );
-    console.log(values);
-    props.resetForm();
+    let data={
+      firstName:values.firstName,
+      lastName:values.lastName,
+      email:values.email,
+      password:values.password,
+    }
+    userConnect.register(data).then((response)=>{
+      alert(
+        `${values.firstName} ${values.lastName}  Registered Successfully !!!!`
+      );
+      console.log(response.data);
+    })
+    .catch((e)=>{
+      alert(
+        ` Registration Failed !!!!`
+      );
+      console.log(e);
+    })
+    this.setState({ firstName: "" });
+    this.setState({ lastName: "" });
+    this.setState({ email: "" });
+    this.setState({ password: "" });
+    this.setState({ confirmPassword: "" });
   }
   toggleShow() {
     this.setState({ hidden: !this.state.hidden });

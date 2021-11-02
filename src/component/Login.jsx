@@ -1,4 +1,7 @@
 import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { loginUserSchema } from "./Validation";
+import userConnect from "../service/RegistrationApi";
 import {
   Grid,
   Paper,
@@ -19,27 +22,32 @@ export class Login extends React.Component {
     this.state = {
       hidden: true,
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.toggleShow = this.toggleShow.bind(this);
   }
-  handlePasswordChange(e) {
-    this.setState({ password: e.target.value });
+  onSubmit(values, props) {
+    let data={
+      email:values.email,
+      password:values.password,
+    }
+    console.log(data);
+    userConnect.login(data).then((response)=>{
+      alert(
+        `Logged In Successfully !!!!`
+      );
+      console.log(response.data);
+      props.resetForm();
+    })
+    .catch((e)=>{
+      alert(
+        ` Registration Failed !!!!`
+      );
+      console.log(e);
+    })
+    console.log(values);
   }
   toggleShow() {
     this.setState({ hidden: !this.state.hidden });
-  }
-  emailHandler = (e) => {
-    this.setState({
-      email: e.target.value,
-    });
-  };
-  handleSubmit(e) {
-    e.preventDefault();
-    alert(`Logged In Successfully !!!!`);
-    console.log(this.state);
-    this.setState({ email: "" });
-    this.setState({ password: "" });
   }
   render() {
     const paperStyle = {
@@ -70,6 +78,10 @@ export class Login extends React.Component {
     const gridStyle = {
       fontFamily: "sans-serif",
     };
+    const initialValues = {
+      email: "",
+      password: "",
+    };
     return (
       <div>
         <Grid>
@@ -83,74 +95,91 @@ export class Login extends React.Component {
                 </h2>
                 <h2>Sign In</h2>
               </Grid>
-              <Grid align="center">
-                <Grid style={textStyle}>
-                  <TextField
-                    id="email"
-                    label="Email"
-                    type="email"
-                    variant="outlined"
-                    style={{ width: 330 }}
-                    value={this.state.email}
-                    onChange={this.emailHandler}
-                    autoFocus
-                  />
-                </Grid>
-                <TextField
-                  id="password"
-                  type={this.state.hidden ? "password" : "text"}
-                  label="Password"
-                  variant="outlined"
-                  style={{ width: 330 }}
-                  value={this.state.password}
-                  onChange={this.handlePasswordChange}
-                />
-              </Grid>
-              <Grid container>
-                <Grid item xs={7}>
-                  <item>
-                    <FormControlLabel
-                      style={checkboxStyle}
-                      control={
-                        <Checkbox
-                          onClick={this.toggleShow}
-                          name="checked"
-                          color="primary"
+              <Grid>
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={loginUserSchema}
+                  onSubmit={this.onSubmit}>
+                  {(props) => (
+                    <Form>
+                      <Grid align="center">
+                        <Grid style={textStyle}>
+                          <Field as={TextField}
+                            id="email"
+                            label="Email"
+                            variant="outlined"
+                            style={{ width: 330 }}
+                            value={this.state.email}
+                            error={
+                              props.errors.email &&
+                              props.touched.email
+                            }
+                            helperText={<ErrorMessage name="email" />}
+                            autoFocus
+                          />
+                        </Grid>
+                        <Field as={TextField}
+                          id="password"
+                          type={this.state.hidden ? "password" : "text"}
+                          label="Password"
+                          variant="outlined"
+                          style={{ width: 330 }}
+                          value={this.state.password}
+                          error={
+                            props.errors.password &&
+                            props.touched.password
+                          }
+                          helperText={<ErrorMessage name="password" />}
                         />
-                      }
-                      label="Show password"
-                    />
-                  </item>
-                </Grid>
-                <Grid item xs={4} style={linkStyle}>
-                  <item>
-                    <h5>
-                      <Link href="#">Forgot password?</Link>
-                    </h5>
-                  </item>
-                </Grid>
-              </Grid>
-              <Grid container spacing={10}>
-                <Grid item xs={6} style={linkStyle}>
-                  <item>
-                    <h4>
-                      <Link href="/createAccount">Create Account</Link>
-                    </h4>
-                  </item>
-                </Grid>
-                <Grid item xs={5} style={buttonStyle}>
-                  <item>
-                    <Button
-                      type="submit"
-                      value="Submit"
-                      color="primary"
-                      variant="contained"
-                      onClick={this.handleSubmit}
-                    >
-                      Sign In
-                    </Button>
-                  </item>
-                </Grid>
+                      </Grid>
+                      <Grid container>
+                        <Grid item xs={7}>
+                          <item>
+                            <FormControlLabel
+                              style={checkboxStyle}
+                              control={
+                                <Checkbox
+                                  onClick={this.toggleShow}
+                                  name="checked"
+                                  color="primary"
+                                />
+                              }
+                              label="Show password"
+                            />
+                          </item>
+                        </Grid>
+                        <Grid item xs={4} style={linkStyle}>
+                          <item>
+                            <h5>
+                              <Link href="#">Forgot password?</Link>
+                            </h5>
+                          </item>
+                        </Grid>
+                      </Grid>
+                      <Grid container spacing={10}>
+                        <Grid item xs={6} style={linkStyle}>
+                          <item>
+                            <h4>
+                              <Link href="/createAccount">Create Account</Link>
+                            </h4>
+                          </item>
+                        </Grid>
+                        <Grid item xs={5} style={buttonStyle}>
+                          <item>
+                            <Button
+                              type="submit"
+                              value="Submit"
+                              color="primary"
+                              variant="contained"
+                            >
+                              Sign In
+                            </Button>
+                          </item>
+                        </Grid>
+                      </Grid>
+                    </Form>
+                  )}
+                </Formik>
               </Grid>
             </Grid>
           </Paper>
