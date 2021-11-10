@@ -1,4 +1,5 @@
 import axiosPost from "../helper/axios";
+
 const register = (data) => {
   let reqObj = {
     data: data,
@@ -13,6 +14,7 @@ const register = (data) => {
       throw err;
     });
 };
+
 const login = (data) => {
   let reqObj = {
     data: data,
@@ -27,4 +29,34 @@ const login = (data) => {
       throw err;
     });
 };
-export default { register, login };
+
+const forgotPassword = (data) => {
+  let reqObj = {
+    data: data,
+    url: "http://localhost:3001/users/login/forgotPassword",
+  };
+  return axiosPost
+    .apiPost(reqObj)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+const resetPassword = (data,token) => {
+  let reqObj = {
+    data: data,
+    url: "http://localhost:3001/users/login/reset/"+token,
+  };
+  return axiosPost
+    .apiPost(reqObj)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+export default { register, login, forgotPassword, resetPassword};

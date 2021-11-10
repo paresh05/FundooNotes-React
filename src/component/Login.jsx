@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { loginUserSchema } from "./Validation";
 import userConnect from "../service/RegistrationApi";
+import {Link} from "react-router-dom"
 import {
   Grid,
   Paper,
@@ -9,7 +10,6 @@ import {
   Button,
   FormControlLabel,
   Checkbox,
-  Link,
 } from "@material-ui/core";
 import RainbowText from "react-rainbow-text";
 export class Login extends React.Component {
@@ -49,45 +49,45 @@ export class Login extends React.Component {
   toggleShow() {
     this.setState({ hidden: !this.state.hidden });
   }
+  paperStyle = {
+    padding: 20,
+    height: "70%",
+    width: 380,
+    margin: "40px auto",
+  };
+  headingStyle = {
+    marginBottom: "30px",
+    marginTop: "-15px",
+  };
+  textStyle = {
+    marginBottom: "30px",
+  };
+  buttonStyle = {
+    marginLeft: "10px",
+    marginTop: "15px",
+    marginBottom: "20px",
+  };
+  linkStyle = {
+    marginLeft: "28px",
+  };
+  checkboxStyle = {
+    marginTop: "7px",
+    marginLeft: "14px",
+  };
+  gridStyle = {
+    fontFamily: "sans-serif",
+  };
+  initialValues = {
+    email: "",
+    password: "",
+  };
   render() {
-    const paperStyle = {
-      padding: 20,
-      height: "70%",
-      width: 380,
-      margin: "40px auto",
-    };
-    const headingStyle = {
-      marginBottom: "30px",
-      marginTop: "-15px",
-    };
-    const textStyle = {
-      marginBottom: "30px",
-    };
-    const buttonStyle = {
-      marginLeft: "10px",
-      marginTop: "15px",
-      marginBottom: "20px",
-    };
-    const linkStyle = {
-      marginLeft: "28px",
-    };
-    const checkboxStyle = {
-      marginTop: "7px",
-      marginLeft: "14px",
-    };
-    const gridStyle = {
-      fontFamily: "sans-serif",
-    };
-    const initialValues = {
-      email: "",
-      password: "",
-    };
     return (
       <div>
         <Grid>
-          <Paper elevation={10} style={paperStyle}>
-            <Grid style={gridStyle}>
-              <Grid align="center" style={headingStyle}>
+          <Paper elevation={10} style={this.paperStyle}>
+            <Grid style={this.gridStyle}>
+              <Grid align="center" style={this.headingStyle}>
                 <h2>
                   <RainbowText lightness={0.5} saturation={1}>
                     FundooNotes
@@ -97,13 +97,13 @@ export class Login extends React.Component {
               </Grid>
               <Grid>
                 <Formik
-                  initialValues={initialValues}
+                  initialValues={this.initialValues}
                   validationSchema={loginUserSchema}
                   onSubmit={this.onSubmit}>
                   {(props) => (
                     <Form>
                       <Grid align="center">
-                        <Grid style={textStyle}>
+                        <Grid style={this.textStyle}>
                           <Field as={TextField}
                             id="email"
                             label="Email"
@@ -136,7 +136,7 @@ export class Login extends React.Component {
                         <Grid item xs={7}>
                           <item>
                             <FormControlLabel
-                              style={checkboxStyle}
+                              style={this.checkboxStyle}
                               control={
                                 <Checkbox
                                   onClick={this.toggleShow}
@@ -148,23 +148,23 @@ export class Login extends React.Component {
                             />
                           </item>
                         </Grid>
-                        <Grid item xs={4} style={linkStyle}>
+                        <Grid item xs={4} style={this.linkStyle}>
                           <item>
                             <h5>
-                              <Link href="#">Forgot password?</Link>
+                              <Link to="/forgotPassword">Forgot password?</Link>
                             </h5>
                           </item>
                         </Grid>
                       </Grid>
                       <Grid container spacing={10}>
-                        <Grid item xs={6} style={linkStyle}>
+                        <Grid item xs={6} style={this.linkStyle}>
                           <item>
                             <h4>
-                              <Link href="/createAccount">Create Account</Link>
+                              <Link to="/createAccount">Create Account</Link>
                             </h4>
                           </item>
                         </Grid>
-                        <Grid item xs={5} style={buttonStyle}>
+                        <Grid item xs={5} style={this.buttonStyle}>
                           <item>
                             <Button
                               type="submit"
