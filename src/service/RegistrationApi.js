@@ -59,4 +59,21 @@ const resetPassword = (data,token) => {
       throw err;
     });
 };
-export default { register, login, forgotPassword, resetPassword};
+
+const getNotes= () => {
+  let reqObj = {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+    url: "http://localhost:3001/notes",
+  };
+  return axiosPost
+    .apiGet(reqObj)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+export default { register, login, forgotPassword, resetPassword, getNotes};

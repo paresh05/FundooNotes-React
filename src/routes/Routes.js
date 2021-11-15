@@ -1,9 +1,11 @@
 import React from "react";
-import { Login } from "../component/Login";
+import { Login } from "../pages/Login";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { CreateUser } from "../component/CreateUser";
-import ForgotPassword from "../component/ForgotPassword";
-import ResetPassword from "../component/Reset";
+import { CreateUser } from "../pages/CreateUser";
+import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/Reset";
+import Dashboard from "../pages/Dashboard";
+
 const Routes = () => {
   return (
     <Router>
@@ -11,6 +13,8 @@ const Routes = () => {
       <Route path="/" exact component={Login} />
       <Route path="/forgotPassword" exact component={ForgotPassword} />
       <Route path="/reset/:token" exact component={ResetPassword} />
+      <Route path="/note" exact component={Dashboard} />
+      
     </Router>
   );
 };

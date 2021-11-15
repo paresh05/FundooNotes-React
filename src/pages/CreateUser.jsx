@@ -11,7 +11,7 @@ import {
 import {Link} from "react-router-dom"
 import userConnect from "../service/RegistrationApi";
 import RainbowText from "react-rainbow-text";
-import { createUserSchema } from "./Validation";
+import { createUserSchema } from "../component/Validation";
 import logo from "../assets/Logo.PNG";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "../styles/createUser.css";
@@ -23,10 +23,13 @@ export class CreateUser extends React.Component {
       lastName: "",
       email: "",
       password: "",
-      confirmPassword: "",
-      hidden: true,
+      confirmPassword: ""
+    }
+      this.state={
+        hidden: true,
+      }
+      
     };
-  }
   onSubmit = (values) => {
     let data = {
       firstName: values.firstName,
@@ -148,7 +151,7 @@ export class CreateUser extends React.Component {
                             label="Email"
                             variant="outlined"
                             size="small"
-                            style={{ width: "118.5%" }}
+                            style={{ width: "120%" }}
                             value={this.state.email}
                             error={props.errors.email && props.touched.email}
                             helperText={<ErrorMessage name="email" />}
@@ -157,7 +160,7 @@ export class CreateUser extends React.Component {
                             You can use letters, numbers
                           </FormHelperText>
                         </Grid>
-                        <Grid container spacing={1}>
+                        <Grid container spacing={0}>
                           <Grid item xs={6}>
                             <Field
                               as={TextField}

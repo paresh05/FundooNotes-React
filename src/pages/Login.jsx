@@ -1,8 +1,8 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { loginUserSchema } from "./Validation";
+import { loginUserSchema } from "../component/Validation";
 import userConnect from "../service/RegistrationApi";
-import {Link} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 import {
   Grid,
   Paper,
@@ -21,6 +21,7 @@ export class Login extends React.Component {
     };
     this.state = {
       hidden: true,
+      redirect:false,
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.toggleShow = this.toggleShow.bind(this);
@@ -30,21 +31,20 @@ export class Login extends React.Component {
       email:values.email,
       password:values.password,
     }
-    console.log(data);
     userConnect.login(data).then((response)=>{
       alert(
         `Logged In Successfully !!!!`
       );
-      console.log(response.data);
+      localStorage.setItem('token',response.data.token);
+      this.setState({redirect: true})
       props.resetForm();
     })
     .catch((e)=>{
       alert(
-        ` Registration Failed !!!!`
+        `Incorrect credentials`
       );
       console.log(e);
     })
-    console.log(values);
   }
   toggleShow() {
     this.setState({ hidden: !this.state.hidden });
@@ -184,6 +184,7 @@ export class Login extends React.Component {
             </Grid>
           </Paper>
         </Grid>
+        {this.state.redirect? <Redirect to="/note" /> : null}
       </div>
     );
   }

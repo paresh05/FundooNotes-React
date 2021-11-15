@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import userConnect from "../service/RegistrationApi";
-import { loginUserSchema } from "./Validation";
+import { loginUserSchema } from "../component/Validation";
 import {
   Grid,
   Paper,

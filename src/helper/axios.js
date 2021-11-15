@@ -6,4 +6,12 @@ const apiPost=(requestObject)=>{
         data: requestObject.data,
     })
 }
-export default {apiPost};
+
+const apiGet=(requestObject)=>{
+    return axios({
+        method: 'get',
+        url: requestObject.url,
+        headers: requestObject.headers
+    })
+}
+export default {apiPost, apiGet};

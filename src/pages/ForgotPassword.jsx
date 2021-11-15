@@ -18,7 +18,7 @@ const ForgotPassword = () => {
         console.log(response.data);
       })
       .catch((e) => {
-        alert(` Registration Failed !!!!`);
+        alert(`Can not send Email to reset the password`);
         console.log(e);
       });
   };
