@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState,useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiAppBar from "@mui/material/AppBar";
@@ -11,12 +11,14 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import AppsIcon from "@mui/icons-material/Apps";
-import LightbulbSharpIcon from "@mui/icons-material/LightbulbSharp";
+import LightbulbSharpIcon from '@mui/icons-material/LightbulbSharp';
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchFilteredNotes } from "../actions/noteAction";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,11 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100px",
-    [theme.breakpoints.up("md")]: {
-      width: "500px",
-    },
+    width: "500px",
   },
 }));
 
@@ -70,6 +68,23 @@ const AppBar = styled(MuiAppBar)(({ theme }) => ({
 }));
 
 export default function Appbar(props) {
+  const [input, setInput] = useState("");
+  const dispatch = useDispatch();
+
+  const handleInput =(event)=>{
+    setInput(event.target.value)
+  }
+  const notes = useSelector((state)=>state.allNotes.notes);
+
+  const filterNotes = (input) => {
+    const filtered = notes.filter((note)=>{return note.title.toLowerCase().includes(input.toLowerCase())})
+    dispatch(fetchFilteredNotes(filtered))
+  }
+
+  useEffect(() => {
+    filterNotes(input);
+  }, [input,notes]);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -86,16 +101,14 @@ export default function Appbar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Badge>
             <LightbulbSharpIcon />
-          </Badge>
           <Typography
             variant="h6"
             noWrap
             component="div"
             style={{ marginLeft: "5px" }}
           >
-            FundooNotes
+            {props.title}
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -103,34 +116,27 @@ export default function Appbar(props) {
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
+              value={input}
+              onChange={(event)=>{handleInput(event)}}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton size="large" color="inherit">
-              <Badge>
                 <RefreshIcon />
-              </Badge>
             </IconButton>
             <IconButton size="large" color="inherit">
-              <Badge>
                 <GridViewOutlinedIcon />
-              </Badge>
             </IconButton>
             <IconButton
               size="large"
               color="inherit"
               sx={{ marginRight: "50px" }}
             >
-              <Badge>
                 <SettingsOutlinedIcon />
-              </Badge>
             </IconButton>
             <IconButton size="large" color="inherit">
-              <Badge>
                 <AppsIcon />
-              </Badge>
             </IconButton>
             <IconButton
               size="large"

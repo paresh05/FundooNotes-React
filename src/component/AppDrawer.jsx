@@ -53,36 +53,44 @@ const Drawer = styled(MuiDrawer, {
 
 export default function AppDrawer(props) {
   return (
-      <Drawer
-        variant="permanent"
-        open={props.open}
-        onMouseOver={()=>props.handleDrawerOpen()}
-        onMouseLeave={()=>props.handleDrawerClose()}
-      >
-        <List style={{ marginTop: "60px" }}>
-          {["Notes", "Remainders", "Edit Labels", "Archive", "Trash"].map(
-            (text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index === 0 ? (
-                    <LightbulbOutlinedIcon />
-                  ) : index === 1 ? (
-                    <NotificationsNoneOutlinedIcon />
-                  ) : index === 2 ? (
-                    <EditOutlinedIcon />
-                  ) : index === 3 ? (
-                    <ArchiveOutlinedIcon />
-                  ) : index === 4 ? (
-                    <DeleteOutlineOutlinedIcon />
-                  ) : (
-                    <LightbulbOutlinedIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
-        </List>
-      </Drawer>
+    <Drawer
+      variant="permanent"
+      open={props.open}
+      onMouseOver={() => props.handleDrawerOpen()}
+      onMouseLeave={() => props.handleDrawerClose()}
+    >
+      <List style={{ marginTop: "60px" }}>
+        {["Notes", "Remainders", "Edit Labels", "Archive", "Trash"].map(
+          (text, index) => (
+            <ListItem
+              button
+              key={text}
+              onClick={() => {
+                text == "Notes"
+                  ? props.handleTitle("FundooNotes")
+                  : props.handleTitle(text);
+              }}
+            >
+              <ListItemIcon>
+                {index === 0 ? (
+                  <LightbulbOutlinedIcon />
+                ) : index === 1 ? (
+                  <NotificationsNoneOutlinedIcon />
+                ) : index === 2 ? (
+                  <EditOutlinedIcon />
+                ) : index === 3 ? (
+                  <ArchiveOutlinedIcon />
+                ) : index === 4 ? (
+                  <DeleteOutlineOutlinedIcon />
+                ) : (
+                  <LightbulbOutlinedIcon />
+                )}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          )
+        )}
+      </List>
+    </Drawer>
   );
 }

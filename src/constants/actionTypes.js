@@ -1,0 +1,4 @@
+export const ActionTypes = {
+  FETCH_NOTES: "FETCH_NOTES",
+  FETCH_SEARCH_NOTES: "FETCH_SEARCH_NOTES",
+};
