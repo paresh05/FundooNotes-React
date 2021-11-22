@@ -12,3 +12,17 @@ export const fetchFilteredNotes = (notes) => {
     payload: notes,
   };
 };
+
+export const postNewNote = (notes) => {
+  return {
+    type: ActionTypes.POST_NEW_NOTE,
+    payload: notes,
+  };
+};
+
+export const deleteNote = () => {
+  return {
+    type: ActionTypes.DELETE_NOTE,
+    //payload: notes,
+  };
+};

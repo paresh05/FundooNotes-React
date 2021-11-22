@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Typography, Box } from "@material-ui/core";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -6,20 +6,25 @@ import NoteIcons from "./NoteIcons";
 import { useSelector } from "react-redux";
 
 export default function Note() {
-  const [hover, setHover] = React.useState(false);
-  const myNote = useSelector((state)=>state.allNotes.filteredNotes);
+  const [hover, setHover] = useState([]);
+  const myNote = useSelector((state) => state.allNotes.filteredNotes);
   return (
-    <Grid container spacing={5}>
-      {myNote.map((note) => (
+    <Grid
+      container
+      spacing={5}
+      style={{ marginTop: "15px", marginLeft: "15px" }}
+    >
+      {myNote.map((note, index) => (
         <Grid item>
           <Card
             variant="outlined"
             sx={{ width: 250, height: 140 }}
-            onMouseOver={() => {
-              setHover(true);
+            key={index}
+            onMouseEnter={() => {
+              setHover({ [index]: true });
             }}
             onMouseLeave={() => {
-              setHover(false);
+              setHover({ [index]: false });
             }}
           >
             <CardContent>
@@ -28,7 +33,7 @@ export default function Note() {
               </Typography>
               <Typography>{note.content}</Typography>
             </CardContent>
-            {hover ? <NoteIcons /> : null}
+            {hover[index] ? <NoteIcons note={note} index={index}/> : null}
           </Card>
         </Grid>
       ))}

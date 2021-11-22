@@ -5,10 +5,24 @@ import AddAlertOutlinedIcon from "@mui/icons-material/AddAlertOutlined";
 import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
-import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import userConnect from "../service/notesApi";
 
-export default function NoteIcons() {
+export default function NoteIcons(props) {
+  const handleDelete = () => {
+    console.log(props);
+    console.log(props.note._id);
+    console.log(props.note);
+    userConnect
+      .deleteNotes(props.note)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   return (
     <div>
       <Grid>
@@ -24,8 +38,13 @@ export default function NoteIcons() {
         <IconButton size="small" color="default" sx={{ padding: "9px" }}>
           <InsertPhotoOutlinedIcon />
         </IconButton>
-        <IconButton size="small" color="default" sx={{ padding: "8px" }}>
-          <ArchiveOutlinedIcon />
+        <IconButton
+          size="small"
+          color="default"
+          sx={{ padding: "8px" }}
+          onClick={handleDelete}
+        >
+          <DeleteOutlineOutlinedIcon />
         </IconButton>
         <IconButton size="small" color="default" sx={{ padding: "8px" }}>
           <MoreVertOutlinedIcon />

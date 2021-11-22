@@ -6,6 +6,7 @@ import { Box } from "@material-ui/core";
 import userConnect from "../service/RegistrationApi";
 import { useDispatch } from "react-redux";
 import { fetchAllNotes } from "../actions/noteAction";
+import CreateNote from "../component/CreateNote";
 
 export default function Dashboard() {
   const [title, setTitle] = React.useState(["FundooNotes"]);
@@ -48,7 +49,8 @@ export default function Dashboard() {
         handleDrawerClose={handleDrawerClose}
         handleTitle={handleTitle}
       />
-      <Box sx={{ marginTop: "100px", marginLeft: "10%" }}>
+      <Box >
+      <CreateNote/>
         <Note/>
       </Box>
     </Box>

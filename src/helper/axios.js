@@ -1,9 +1,10 @@
 import axios from 'axios';
-const apiPost=(requestObject)=>{
+const apiPost =(requestObject)=>{
     return axios({
         method: 'post',
         url: requestObject.url,
         data: requestObject.data,
+        headers: requestObject.headers
     })
 }
 
@@ -14,4 +15,13 @@ const apiGet=(requestObject)=>{
         headers: requestObject.headers
     })
 }
-export default {apiPost, apiGet};
+
+const apiDelete=(requestObject)=>{
+    return axios({
+        method: 'delete',
+        url: requestObject.url,
+        data: requestObject.data,
+        headers: requestObject.headers
+    })
+}
+export default {apiPost, apiGet, apiDelete};

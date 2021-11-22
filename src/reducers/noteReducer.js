@@ -10,6 +10,8 @@ export const noteReducer = (state = initialState, { type, payload }) => {
       return { ...state, notes: payload };
     case ActionTypes.FETCH_SEARCH_NOTES:
       return { ...state, filteredNotes: payload };
+    case ActionTypes.POST_NEW_NOTE:
+      return { ...state, notes:[...state.notes, payload]};
     default:
       return state;
   }

@@ -19,17 +19,15 @@ const ResetPassword = () => {
     setHidden(!hidden);
   };
   const onSubmit = () => {
-    console.log(password);
     let data = {
       password: password,
     };
     userConnect
       .resetPassword(data,token)
-      .then((response) => {
+      .then(() => {
         alert(
           `Password Reset Successfully!!`
         );
-        console.log(response.data);
       })
       .catch((e) => {
         alert(`Failed to Reset the Password`);
