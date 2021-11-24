@@ -20,9 +20,37 @@ export const postNewNote = (notes) => {
   };
 };
 
-export const deleteNote = () => {
+export const updateNote = (notes) => {
+  return {
+    type: ActionTypes.UPDATE_NOTE,
+    payload: notes,
+  };
+};
+
+export const deleteNote = (notes) => {
   return {
     type: ActionTypes.DELETE_NOTE,
-    //payload: notes,
+    payload: notes,
+  };
+};
+
+export const addToTrash = (notes) => {
+  return {
+    type: ActionTypes.ADD_TO_TRASH,
+    payload: notes,
+  };
+};
+
+export const deleteFromTrash = (notes) => {
+  return {
+    type: ActionTypes.DELETE_FROM_TRASH,
+    payload: notes,
+  };
+};
+
+export const deleteANote = (notes) => {
+  return {
+    type: ActionTypes.DELETE,
+    payload: notes,
   };
 };

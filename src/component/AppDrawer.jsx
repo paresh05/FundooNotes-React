@@ -73,7 +73,7 @@ export default function AppDrawer(props) {
             >
               <ListItemIcon>
                 {index === 0 ? (
-                  <LightbulbOutlinedIcon />
+                  <LightbulbOutlinedIcon onClick={()=>{props.handleNoteOption()}}/>
                 ) : index === 1 ? (
                   <NotificationsNoneOutlinedIcon />
                 ) : index === 2 ? (
@@ -81,7 +81,7 @@ export default function AppDrawer(props) {
                 ) : index === 3 ? (
                   <ArchiveOutlinedIcon />
                 ) : index === 4 ? (
-                  <DeleteOutlineOutlinedIcon />
+                  <DeleteOutlineOutlinedIcon onClick={()=>{props.handleOption()}}/>
                 ) : (
                   <LightbulbOutlinedIcon />
                 )}

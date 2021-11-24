@@ -24,4 +24,13 @@ const apiDelete=(requestObject)=>{
         headers: requestObject.headers
     })
 }
-export default {apiPost, apiGet, apiDelete};
+
+const apiUpdate=(requestObject)=>{
+    return axios({
+        method: 'put',
+        url: requestObject.url,
+        data: requestObject.data,
+        headers: requestObject.headers
+    })
+}
+export default {apiPost, apiGet, apiDelete, apiUpdate};

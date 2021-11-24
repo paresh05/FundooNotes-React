@@ -31,6 +31,10 @@ export default function CreateNote() {
   const [note, setNote] = React.useState(initialNote);
   const [postNote, setPostNote] = React.useState(false);
 
+  const onClose = () => {
+    setPaperWidth(styleInput);
+    setPostNote(false);
+  }
   const onSubmit = () => {
     let data = {
       title: note.title,
@@ -100,13 +104,23 @@ export default function CreateNote() {
               />
             </Grid>
             <Grid item xs={11} align="right">
-              <Button
+            <Button
                 type="submit"
                 value="Submit"
                 color="inherit"
                 variant="text"
                 size="small"
                 onClick={onSubmit}
+              >
+               Submit
+              </Button>
+              <Button
+                type="submit"
+                value="Submit"
+                color="inherit"
+                variant="text"
+                size="small"
+                onClick={onClose}
               >
                 close
               </Button>

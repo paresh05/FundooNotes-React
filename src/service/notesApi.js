@@ -1,47 +1,46 @@
 import axiosPost from "../helper/axios";
 
-const getNotes= () => {
-    let reqObj = {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-      url: "http://localhost:3001/notes",
-    };
-    return axiosPost
-      .apiGet(reqObj)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
-
-  const postNotes= (data) => {
-    let reqObj = {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-      url: "http://localhost:3001/notes",
-      data: data,
-    };
-    return axiosPost
-      .apiPost(reqObj)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
-
-  const deleteNotes= (data) => {
-    console.log(data._id);
+const getNotes = () => {
   let reqObj = {
     headers: {
       Authorization: localStorage.getItem("token"),
     },
-    url: "http://localhost:3001/notes/"+data._id,
+    url: "http://localhost:3001/notes",
+  };
+  return axiosPost
+    .apiGet(reqObj)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+const postNotes = (data) => {
+  let reqObj = {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+    url: "http://localhost:3001/notes",
+    data: data,
+  };
+  return axiosPost
+    .apiPost(reqObj)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+const deleteNotes = (data) => {
+  let reqObj = {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+    url: "http://localhost:3001/notes/" + data._id,
     data: data,
   };
   return axiosPost
@@ -53,4 +52,24 @@ const getNotes= () => {
       throw err;
     });
 };
-  export default {getNotes, postNotes, deleteNotes};
+
+const updateNotes= (data) => {
+  console.log("service");
+  console.log(data);
+  let reqObj = {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+    url: "http://localhost:3001/notes/"+data._id,
+    data: data,
+  };
+  return axiosPost
+    .apiUpdate(reqObj)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+export default { getNotes, postNotes, deleteNotes, updateNotes};

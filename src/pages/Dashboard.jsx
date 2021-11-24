@@ -5,13 +5,24 @@ import Note from "../component/Note";
 import { Box } from "@material-ui/core";
 import userConnect from "../service/RegistrationApi";
 import { useDispatch } from "react-redux";
-import { fetchAllNotes } from "../actions/noteAction";
+import { addToTrash, fetchAllNotes} from "../actions/noteAction";
 import CreateNote from "../component/CreateNote";
+import Trash from "../component/Trash";
 
 export default function Dashboard() {
   const [title, setTitle] = React.useState(["FundooNotes"]);
+  const [option, setOption] = React.useState(true);
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
+
+  const handleOption = () => {
+    setOption(false);
+  };
+
+  const handleNoteOption = () => {
+    setOption(true);
+  };
+
   const handleDrawer = () => {
     setOpen(!open);
   };
@@ -24,7 +35,7 @@ export default function Dashboard() {
   const handleTitle = (text) => {
     setTitle(text);
   };
-  
+
   useEffect(() => {
     fetchNotes();
   }, []);
@@ -33,7 +44,10 @@ export default function Dashboard() {
     userConnect
       .getNotes()
       .then((response) => {
-        dispatch(fetchAllNotes(response.data))
+        let Notes = response.data;
+        console.log(Notes);
+        dispatch(fetchAllNotes(Notes.filter((note)=>!note.isTrash)))
+        dispatch(addToTrash(Notes.filter((note)=>note.isTrash)))
       })
       .catch((e) => {
         console.log(e);
@@ -48,11 +62,17 @@ export default function Dashboard() {
         handleDrawerOpen={handleDrawerOpen}
         handleDrawerClose={handleDrawerClose}
         handleTitle={handleTitle}
+        handleOption={handleOption}
+        handleNoteOption={handleNoteOption}
       />
-      <Box >
-      <CreateNote/>
-        <Note/>
-      </Box>
+      {option ? (
+        <Box>
+          <CreateNote />
+          <Note />
+        </Box>
+      ) : (
+        <Trash />
+      )}
     </Box>
   );
 }

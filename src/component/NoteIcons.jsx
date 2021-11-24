@@ -8,16 +8,24 @@ import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import userConnect from "../service/notesApi";
+import { useDispatch } from "react-redux";
+import { deleteNote } from "../actions/noteAction";
 
 export default function NoteIcons(props) {
+  const dispatch = useDispatch();
   const handleDelete = () => {
-    console.log(props);
-    console.log(props.note._id);
-    console.log(props.note);
+    let data = {
+      title: props.note.title,
+      content: props.note.content,
+      _id: props.note._id,
+      userId: props.note.userId,
+      isTrash: true,
+    };
     userConnect
-      .deleteNotes(props.note)
+      .updateNotes(data)
       .then((response) => {
-        console.log(response);
+        dispatch(deleteNote({data:response.data}))
+        console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
