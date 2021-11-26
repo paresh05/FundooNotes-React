@@ -10,6 +10,7 @@ import InputBase from "@mui/material/InputBase";
 import userConnect from "../service/notesApi";
 import { useDispatch } from "react-redux";
 import { updateNote } from "../actions/noteAction";
+import { DialogContentText } from "@material-ui/core";
 
 export default function UpdateNote(props) {
   const dispatch = useDispatch();
@@ -27,8 +28,10 @@ export default function UpdateNote(props) {
       content: note.content,
       _id: props.note._id,
       userId: props.note.userId,
+      color: props.note.color,
       isTrash: false,
     };
+    console.log(data);
     userConnect
       .updateNotes(data)
       .then((response) => {
@@ -52,8 +55,8 @@ export default function UpdateNote(props) {
   };
   return (
     <>
-      <Dialog open={open} onClose={handleClose} fullWidth>
-        <DialogTitle>
+      <Dialog open={open} onClose={handleClose} fullWidth >
+        <DialogTitle sx={{bgcolor: props.note.color}}>
           <InputBase
             id="title"
             placeholder="Title"
@@ -65,7 +68,7 @@ export default function UpdateNote(props) {
             fullWidth
           />
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{bgcolor: props.note.color}}>
           <InputBase
             id="content"
             placeholder="Take a Note"
@@ -74,11 +77,12 @@ export default function UpdateNote(props) {
             name="content"
             value={note.content}
             onChange={handleNote}
+            multiline
             fullWidth
             autoFocus
           />
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{bgcolor: props.note.color}}>
           <Button onClick={handleUpdate}>Close</Button>
         </DialogActions>
       </Dialog>

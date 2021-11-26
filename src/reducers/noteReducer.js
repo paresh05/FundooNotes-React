@@ -36,6 +36,7 @@ export const noteReducer = (state = initialState, { type, payload }) => {
       let deleteNote = [...state.trash];
       deleteNote = deleteNote.filter((notes) => notes._id != payload.data._id);
       return { ...state, trash: deleteNote };
+
     default:
       return state;
   }

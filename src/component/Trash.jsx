@@ -42,7 +42,7 @@ export default function Trash() {
     userConnect
       .deleteNotes(data)
       .then((response) => {
-        dispatch(deleteANote({ data:data }));
+        dispatch(deleteANote({ data: data }));
         console.log(response.data);
       })
       .catch((e) => {
@@ -68,7 +68,8 @@ export default function Trash() {
       {myNote.map((note, index) => (
         <Grid item style={{ marginLeft: "30px" }}>
           <Card
-            variant="outlined"
+            variant={hover[index] ? "elevation" : "outlined"}
+            elevation={5}
             sx={{ width: 250, height: 140 }}
             key={index}
             onMouseEnter={() => {

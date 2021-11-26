@@ -7,13 +7,26 @@ import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import ColorPopOver from "./ColorPopOver";
 import userConnect from "../service/notesApi";
 import { useDispatch } from "react-redux";
 import { deleteNote } from "../actions/noteAction";
 
 export default function NoteIcons(props) {
   const dispatch = useDispatch();
+  const [color, setColor] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    setColor(true);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+    props.handleHover(props.index);
+  };
   const handleDelete = () => {
+    props.handleClick(props.note);
     let data = {
       title: props.note.title,
       content: props.note.content,
@@ -24,7 +37,7 @@ export default function NoteIcons(props) {
     userConnect
       .updateNotes(data)
       .then((response) => {
-        dispatch(deleteNote({data:response.data}))
+        dispatch(deleteNote({ data: response.data }));
         console.log(response.data);
       })
       .catch((e) => {
@@ -40,7 +53,12 @@ export default function NoteIcons(props) {
         <IconButton size="small" color="default" sx={{ padding: "9px" }}>
           <PersonAddOutlinedIcon />
         </IconButton>
-        <IconButton size="small" color="default" sx={{ padding: "9px" }}>
+        <IconButton
+          size="small"
+          color="default"
+          sx={{ padding: "9px" }}
+          onClick={handleClick}
+        >
           <ColorLensOutlinedIcon />
         </IconButton>
         <IconButton size="small" color="default" sx={{ padding: "9px" }}>
@@ -57,6 +75,14 @@ export default function NoteIcons(props) {
         <IconButton size="small" color="default" sx={{ padding: "8px" }}>
           <MoreVertOutlinedIcon />
         </IconButton>
+        {color ? (
+          <ColorPopOver
+            note={props.note}
+            index={props.index}
+            anchorEl={anchorEl}
+            handleClose={handleClose}
+          />
+        ) : null}
       </Grid>
     </div>
   );
