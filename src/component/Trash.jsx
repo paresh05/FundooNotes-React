@@ -59,9 +59,9 @@ export default function Trash() {
         item
         xs={10}
         align="center"
-        style={{ fontStyle: "italic", fontWeight: "bold" }}
+        style={{ fontStyle: "italic" }}
       >
-        <Typography variant="subtitle1">
+        <Typography variant="subtitle1" style={{fontWeight:"600"}}>
           Notes in Trash are deleted after 7 days.
         </Typography>
       </Grid>
@@ -70,7 +70,12 @@ export default function Trash() {
           <Card
             variant={hover[index] ? "elevation" : "outlined"}
             elevation={5}
-            sx={{ width: 250, height: 140 }}
+            sx={{
+              //bgcolor: note.color,
+              width: 240,
+              height: 130,
+              borderRadius: "5%",
+            }}
             key={index}
             onMouseEnter={() => {
               setHover({ [index]: true });
@@ -83,7 +88,7 @@ export default function Trash() {
               <Typography variant="h6" gutterBottom component="div">
                 {note.title}
               </Typography>
-              <Typography>{note.content}</Typography>
+              <Typography noWrap>{note.content}</Typography>
             </CardContent>
             {hover[index] ? (
               <Grid align="center">

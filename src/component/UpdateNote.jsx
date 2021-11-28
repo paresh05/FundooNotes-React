@@ -10,7 +10,6 @@ import InputBase from "@mui/material/InputBase";
 import userConnect from "../service/notesApi";
 import { useDispatch } from "react-redux";
 import { updateNote } from "../actions/noteAction";
-import { DialogContentText } from "@material-ui/core";
 
 export default function UpdateNote(props) {
   const dispatch = useDispatch();
@@ -55,23 +54,22 @@ export default function UpdateNote(props) {
   };
   return (
     <>
-      <Dialog open={open} onClose={handleClose} fullWidth >
-        <DialogTitle sx={{bgcolor: props.note.color}}>
+      <Dialog open={open} onClose={handleClose} fullWidth>
+        <DialogTitle sx={{ bgcolor: props.note.color }}>
           <InputBase
             id="title"
-            placeholder="Title"
             type="title"
             name="title"
             value={note.title}
             onChange={handleNote}
+            sx={{ fontSize: "1.375rem" }}
             variant="standard"
             fullWidth
           />
         </DialogTitle>
-        <DialogContent sx={{bgcolor: props.note.color}}>
+        <DialogContent sx={{ bgcolor: props.note.color }}>
           <InputBase
             id="content"
-            placeholder="Take a Note"
             type="content"
             variant="standard"
             name="content"
@@ -82,8 +80,18 @@ export default function UpdateNote(props) {
             autoFocus
           />
         </DialogContent>
-        <DialogActions sx={{bgcolor: props.note.color}}>
-          <Button onClick={handleUpdate}>Close</Button>
+        <DialogActions sx={{ bgcolor: props.note.color }}>
+          <Button
+            onClick={handleUpdate}
+            color="inherit"
+            sx={{
+              fontSize: "0.875rem",
+              fontWeight: "600",
+              textTransform: "none",
+            }}
+          >
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     </>

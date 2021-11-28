@@ -15,6 +15,7 @@ const drawerWidth = 220;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
+  borderRight: "0px",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -28,6 +29,7 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: "hidden",
+  borderRight: "0px",
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
     width: `calc(${theme.spacing(9)} + 1px)`,
@@ -39,6 +41,7 @@ const Drawer = styled(MuiDrawer, {
 })(({ theme, open }) => ({
   width: drawerWidth,
   flexShrink: 0,
+  borderRight: "0px",
   whiteSpace: "nowrap",
   boxSizing: "border-box",
   ...(open && {
@@ -51,6 +54,17 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
+const ListItems = styled(ListItem)`
+  &:hover {
+    background-color: #e6e8e6;
+    border-radius:0px 25px 25px 0px
+  }
+  &:focus {
+    background-color: #feefc3;
+    border-radius:50px
+  }
+`;
+
 export default function AppDrawer(props) {
   return (
     <Drawer
@@ -59,10 +73,10 @@ export default function AppDrawer(props) {
       onMouseOver={() => props.handleDrawerOpen()}
       onMouseLeave={() => props.handleDrawerClose()}
     >
-      <List style={{ marginTop: "60px" }}>
+      <List style={{ marginTop: "65px", paddingLeft:"8px", paddingRight:"8px"}}>
         {["Notes", "Remainders", "Edit Labels", "Archive", "Trash"].map(
           (text, index) => (
-            <ListItem
+            <ListItems
               button
               key={text}
               onClick={() => {
@@ -87,7 +101,7 @@ export default function AppDrawer(props) {
                 )}
               </ListItemIcon>
               <ListItemText primary={text} />
-            </ListItem>
+            </ListItems>
           )
         )}
       </List>

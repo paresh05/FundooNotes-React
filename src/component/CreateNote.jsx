@@ -4,24 +4,33 @@ import { Grid, Paper, Button } from "@material-ui/core";
 import userConnect from "../service/notesApi";
 import { useDispatch } from "react-redux";
 import { postNewNote } from "../actions/noteAction";
+import { Stack } from "@mui/material";
 
+const buttonStyles = {
+  fontWeight: "600",
+  textTransform: "none",
+  fontSize: "0.875rem",
+  color:"grey"
+};
 export default function CreateNote() {
   const dispatch = useDispatch();
   const styleInputOnClick = {
-    marginLeft: "30%",
+    marginLeft: "365px",
     marginTop: "100px",
     display: "flex",
     flexWrap: "wrap",
-    width: "46%",
+    width: "600px",
     height: 130,
+    borderRadius:8
   };
   const styleInput = {
-    marginLeft: "30%",
+    marginLeft: "365px",
     marginTop: "100px",
     display: "flex",
     flexWrap: "wrap",
-    width: "46%",
-    height: 50,
+    width: "600px",
+    height: 44,
+    borderRadius:8
   };
   let initialNote = {
     title: "",
@@ -34,7 +43,7 @@ export default function CreateNote() {
   const onClose = () => {
     setPaperWidth(styleInput);
     setPostNote(false);
-  }
+  };
   const onSubmit = () => {
     let data = {
       title: note.title,
@@ -46,7 +55,7 @@ export default function CreateNote() {
       .postNotes(data)
       .then((response) => {
         console.log(response);
-        dispatch(postNewNote(data))
+        dispatch(postNewNote(response.data));
       })
       .catch((e) => {
         console.log(e);
@@ -65,11 +74,11 @@ export default function CreateNote() {
         {postNote === false ? (
           <InputBase
             id="title"
-            placeholder="Take a Note"
+            placeholder="Take a note..."
             type="title"
             name="title"
             variant="standard"
-            style={{ marginLeft: "15px" }}
+            style={{ marginLeft: "15px" , fontWeight:"600"}}
             fullWidth
             onClick={() => {
               setPaperWidth(styleInputOnClick);
@@ -87,7 +96,7 @@ export default function CreateNote() {
                 value={note.title}
                 onChange={handleNote}
                 variant="standard"
-                style={{ marginLeft: "15px", marginTop: "7px" }}
+                style={{ marginLeft: "15px", marginTop: "7px" ,fontWeight:"600"}}
                 fullWidth
               />
               <InputBase
@@ -103,27 +112,26 @@ export default function CreateNote() {
                 autoFocus
               />
             </Grid>
-            <Grid item xs={11} align="right">
-            <Button
-                type="submit"
-                value="Submit"
-                color="inherit"
-                variant="text"
-                size="small"
-                onClick={onSubmit}
-              >
-               Submit
-              </Button>
-              <Button
-                type="submit"
-                value="Submit"
-                color="inherit"
-                variant="text"
-                size="small"
-                onClick={onClose}
-              >
-                close
-              </Button>
+            <Grid item xs={12} style={{ paddingRight: "15px" }}>
+              <Stack spacing={2} direction="row-reverse">
+                <Button
+                  type="submit"
+                  size="small"
+                  onClick={onClose}
+                  style={buttonStyles}
+                >
+                  Close
+                </Button>
+                <Button
+                  type="submit"
+                  color="inherit"
+                  size="small"
+                  onClick={onSubmit}
+                  style={buttonStyles}
+                >
+                  Submit
+                </Button>
+              </Stack>
             </Grid>
           </>
         )}

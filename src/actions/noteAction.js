@@ -34,6 +34,13 @@ export const deleteNote = (notes) => {
   };
 };
 
+export const viewMode = (view) => {
+  return {
+    type: ActionTypes.VIEW,
+    payload: view,
+  };
+};
+
 export const addToTrash = (notes) => {
   return {
     type: ActionTypes.ADD_TO_TRASH,

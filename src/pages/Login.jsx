@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { loginUserSchema } from "../component/Validation";
 import userConnect from "../service/RegistrationApi";
-import {Link, Redirect} from "react-router-dom"
+import { Link, Redirect } from "react-router-dom";
 import {
   Grid,
   Paper,
@@ -12,39 +12,38 @@ import {
   Checkbox,
 } from "@material-ui/core";
 import RainbowText from "react-rainbow-text";
-export class Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
-    };
-    this.state = {
       hidden: true,
-      redirect:false,
+      redirect: false,
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.toggleShow = this.toggleShow.bind(this);
   }
+  handleInput = (e) => {
+    this.setState({
+      email: e.target.value,
+    });
+  };
   onSubmit(values, props) {
-    let data={
-      email:values.email,
-      password:values.password,
-    }
-    userConnect.login(data).then((response)=>{
-      alert(
-        `Logged In Successfully !!!!`
-      );
-      localStorage.setItem('token',response.data.token);
-      this.setState({redirect: true})
-      props.resetForm();
-    })
-    .catch((e)=>{
-      alert(
-        `Incorrect credentials`
-      );
-      console.log(e);
-    })
+    let data = {
+      email: values.email,
+      password: values.password,
+    };
+    userConnect
+      .login(data)
+      .then((response) => {
+        alert(`Logged In Successfully !!!!`);
+        localStorage.setItem("token", response.data.token);
+        this.setState({ redirect: true });
+      })
+      .catch((e) => {
+        alert(`Incorrect credentials`);
+        console.log(e);
+        props.resetForm();
+      });
   }
   toggleShow() {
     this.setState({ hidden: !this.state.hidden });
@@ -99,35 +98,32 @@ export class Login extends React.Component {
                 <Formik
                   initialValues={this.initialValues}
                   validationSchema={loginUserSchema}
-                  onSubmit={this.onSubmit}>
+                  onSubmit={this.onSubmit}
+                >
                   {(props) => (
                     <Form>
                       <Grid align="center">
                         <Grid style={this.textStyle}>
-                          <Field as={TextField}
-                            id="email"
+                          <Field
+                            as={TextField}
                             label="Email"
                             variant="outlined"
+                            name="email"
                             style={{ width: 330 }}
-                            value={this.state.email}
-                            error={
-                              props.errors.email &&
-                              props.touched.email
-                            }
+                            error={props.errors.email && props.touched.email}
                             helperText={<ErrorMessage name="email" />}
                             autoFocus
                           />
                         </Grid>
-                        <Field as={TextField}
-                          id="password"
+                        <Field
+                          as={TextField}
+                          name="password"
                           type={this.state.hidden ? "password" : "text"}
                           label="Password"
                           variant="outlined"
                           style={{ width: 330 }}
-                          value={this.state.password}
                           error={
-                            props.errors.password &&
-                            props.touched.password
+                            props.errors.password && props.touched.password
                           }
                           helperText={<ErrorMessage name="password" />}
                         />
@@ -167,6 +163,7 @@ export class Login extends React.Component {
                         <Grid item xs={5} style={this.buttonStyle}>
                           <item>
                             <Button
+                              id="submit"
                               type="submit"
                               value="Submit"
                               color="primary"
@@ -184,8 +181,9 @@ export class Login extends React.Component {
             </Grid>
           </Paper>
         </Grid>
-        {this.state.redirect? <Redirect to="/note" /> : null}
+        {this.state.redirect ? <Redirect to="/note" /> : null}
       </div>
     );
   }
 }
+export default Login;

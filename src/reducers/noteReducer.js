@@ -4,6 +4,7 @@ const initialState = {
   notes: [],
   filteredNotes: [],
   trash: [],
+  view: false,
 };
 export const noteReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -37,6 +38,8 @@ export const noteReducer = (state = initialState, { type, payload }) => {
       deleteNote = deleteNote.filter((notes) => notes._id != payload.data._id);
       return { ...state, trash: deleteNote };
 
+    case ActionTypes.VIEW:
+      return { ...state, view: payload };
     default:
       return state;
   }

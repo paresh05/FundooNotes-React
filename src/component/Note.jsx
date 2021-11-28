@@ -19,6 +19,7 @@ export default function Note() {
   const [note, setNote] = React.useState([]);
   const [hover, setHover] = useState([]);
   const [update, setUpdate] = useState(false);
+  const view = useSelector((state) => state.allNotes.view);
   const myNote = useSelector((state) => state.allNotes.filteredNotes);
   const handleSetUpdate = (index) => {
     setUpdate({ [index]: false });
@@ -71,19 +72,32 @@ export default function Note() {
       </IconButton>
     </React.Fragment>
   );
-
+  let item;
+  let cardWidth;
+  if (view) {
+    item = 11;
+    cardWidth = 540;
+  } else {
+    item = 0;
+    cardWidth = 240;
+  }
   return (
     <Grid
       container
-      spacing={5}
-      style={{ marginTop: "15px", marginLeft: "30px" }}
+      spacing={2}
+      style={{ marginTop: "15px", paddingLeft: "150px" }}
     >
       {myNote.map((note, index) => (
-        <Grid item>
+        <Grid item xs={item} align="center">
           <Card
             variant={hover[index] ? "elevation" : "outlined"}
             elevation={5}
-            sx={{ bgcolor: note.color, width: 250, minHeight: 140 }}
+            sx={{
+              bgcolor: note.color,
+              width: cardWidth,
+              height: 130,
+              borderRadius: 2,
+            }}
             key={index}
             onMouseEnter={() => {
               setHover({ [index]: true });
@@ -95,7 +109,17 @@ export default function Note() {
                 setUpdate({ [index]: true });
               }}
             >
-              <Typography variant="h6" gutterBottom component="div">
+              <Typography
+                variant="body1"
+                style={{
+                  fontSize: "1.125rem",
+                  fontWeight: "400",
+                  color: "rgb(32,33,36)",
+                  letterSpacing: 0,
+                }}
+                gutterBottom
+                component="div"
+              >
                 {note.title}
               </Typography>
               <Typography noWrap>{note.content}</Typography>

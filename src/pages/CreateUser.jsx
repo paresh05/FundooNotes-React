@@ -8,7 +8,7 @@ import {
   FormControlLabel,
   FormHelperText,
 } from "@material-ui/core";
-import {Link} from "react-router-dom"
+import { Link, Redirect} from "react-router-dom";
 import userConnect from "../service/RegistrationApi";
 import RainbowText from "react-rainbow-text";
 import { createUserSchema } from "../component/Validation";
@@ -19,18 +19,11 @@ export class CreateUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: ""
-    }
-      this.state={
-        hidden: true,
-      }
-      
+      hidden: true,
+      redirect: false,
     };
-  onSubmit = (values) => {
+  }
+  onSubmit = (values,props) => {
     let data = {
       firstName: values.firstName,
       lastName: values.lastName,
@@ -44,16 +37,13 @@ export class CreateUser extends React.Component {
           `${values.firstName} ${values.lastName}  Registered Successfully !!!!`
         );
         console.log(response.data);
+        this.setState({ redirect: true });
       })
       .catch((e) => {
         alert(` Registration Failed !!!!`);
         console.log(e);
       });
-    this.setState({ firstName: "" });
-    this.setState({ lastName: "" });
-    this.setState({ email: "" });
-    this.setState({ password: "" });
-    this.setState({ confirmPassword: "" });
+      props.resetForm();
   };
   toggleShow = () => {
     this.setState({ hidden: !this.state.hidden });
@@ -86,7 +76,6 @@ export class CreateUser extends React.Component {
     password: "",
     confirmPassword: "",
   };
-
   render() {
     return (
       <div>
@@ -114,12 +103,11 @@ export class CreateUser extends React.Component {
                           <Grid item xs={6}>
                             <Field
                               as={TextField}
-                              id="firstName"
+                              name="firstName"
                               type="text"
                               label="First Name"
                               variant="outlined"
                               size="small"
-                              value={this.state.firstName}
                               error={
                                 props.errors.firstName &&
                                 props.touched.firstName
@@ -131,12 +119,11 @@ export class CreateUser extends React.Component {
                           <Grid item xs={6}>
                             <Field
                               as={TextField}
-                              id="lastName"
+                              name="lastName"
                               type="text"
                               label="Last Name"
                               variant="outlined"
                               size="small"
-                              value={this.state.lastName}
                               error={
                                 props.errors.lastName && props.touched.lastName
                               }
@@ -147,12 +134,11 @@ export class CreateUser extends React.Component {
                         <Grid style={this.textStyle} item xs={12}>
                           <Field
                             as={TextField}
-                            id="email"
+                            name="email"
                             label="Email"
                             variant="outlined"
                             size="small"
                             style={{ width: "120%" }}
-                            value={this.state.email}
                             error={props.errors.email && props.touched.email}
                             helperText={<ErrorMessage name="email" />}
                           />
@@ -164,12 +150,11 @@ export class CreateUser extends React.Component {
                           <Grid item xs={6}>
                             <Field
                               as={TextField}
-                              id="password"
+                              name="password"
                               type={this.state.hidden ? "password" : "text"}
                               label="Password"
                               variant="outlined"
                               size="small"
-                              value={this.state.password}
                               error={
                                 props.errors.password && props.touched.password
                               }
@@ -179,12 +164,11 @@ export class CreateUser extends React.Component {
                           <Grid item xs={6}>
                             <Field
                               as={TextField}
-                              id="confirmPassword"
+                              name="confirmPassword"
                               type={this.state.hidden ? "password" : "text"}
                               label="Confirm"
                               variant="outlined"
                               size="small"
-                              value={this.state.confirmPassword}
                               error={
                                 props.errors.confirmPassword &&
                                 props.touched.confirmPassword
@@ -212,7 +196,7 @@ export class CreateUser extends React.Component {
                         <Grid container spacing={1}>
                           <Grid item xs={6}>
                             <h4>
-                              <Link to ="/" style={this.textStyle}>
+                              <Link to="/" style={this.textStyle}>
                                 Sign in instead
                               </Link>
                             </h4>
@@ -240,6 +224,7 @@ export class CreateUser extends React.Component {
             </Grid>
           </Paper>
         </Grid>
+        {this.state.redirect ? <Redirect to="/" /> : null}
       </div>
     );
   }

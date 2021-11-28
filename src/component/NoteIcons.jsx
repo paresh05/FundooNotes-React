@@ -6,7 +6,6 @@ import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import ColorPopOver from "./ColorPopOver";
 import userConnect from "../service/notesApi";
 import { useDispatch } from "react-redux";
@@ -46,7 +45,7 @@ export default function NoteIcons(props) {
   };
   return (
     <div>
-      <Grid>
+      <Grid align="center">
         <IconButton size="small" color="default" sx={{ padding: "9px" }}>
           <AddAlertOutlinedIcon />
         </IconButton>
@@ -67,13 +66,10 @@ export default function NoteIcons(props) {
         <IconButton
           size="small"
           color="default"
-          sx={{ padding: "8px" }}
+          sx={{ padding: "9px" }}
           onClick={handleDelete}
         >
           <DeleteOutlineOutlinedIcon />
-        </IconButton>
-        <IconButton size="small" color="default" sx={{ padding: "8px" }}>
-          <MoreVertOutlinedIcon />
         </IconButton>
         {color ? (
           <ColorPopOver
