@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import NoteIcons from "./NoteIcons";
 import { useSelector } from "react-redux";
@@ -95,7 +96,7 @@ export default function Note() {
             sx={{
               bgcolor: note.color,
               width: cardWidth,
-              height: 130,
+              height: 270,
               borderRadius: 2,
             }}
             key={index}
@@ -104,6 +105,17 @@ export default function Note() {
             }}
             onMouseLeave={() => handleHover(index)}
           >
+            {note.image !== "" ? (
+              <CardMedia
+                component="img"
+                alt="images"
+                height="140"
+                image={`http://localhost:3001/images/${note.image}`}
+                onClick={() => {
+                  setUpdate({ [index]: true });
+                }}
+              />
+            ) : null}
             <CardContent
               onClick={() => {
                 setUpdate({ [index]: true });
@@ -111,6 +123,7 @@ export default function Note() {
             >
               <Typography
                 variant="body1"
+                noWrap
                 style={{
                   fontSize: "1.125rem",
                   fontWeight: "400",
@@ -122,7 +135,7 @@ export default function Note() {
               >
                 {note.title}
               </Typography>
-              <Typography noWrap>{note.content}</Typography>
+              <Typography style={{height:((note.image !== "") ?"20px":"161px"), overflow:"hidden"}}>{note.content}</Typography>
             </CardContent>
             {hover[index] ? (
               <NoteIcons

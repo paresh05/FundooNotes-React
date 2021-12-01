@@ -22,20 +22,20 @@ export const noteReducer = (state = initialState, { type, payload }) => {
       return { ...state, trash: payload };
     case ActionTypes.DELETE_NOTE:
       let newNotes = [...state.notes];
-      newNotes = newNotes.filter((notes) => notes._id != payload.data._id);
+      newNotes = newNotes.filter((notes) => notes._id !== payload.data._id);
       let trashNote = [...state.trash];
       trashNote.push(payload.data);
       return { ...state, notes: newNotes, trash: trashNote };
     case ActionTypes.DELETE_FROM_TRASH:
       let trashNotes = [...state.trash];
-      trashNotes = trashNotes.filter((notes) => notes._id != payload.data._id);
+      trashNotes = trashNotes.filter((notes) => notes._id !== payload.data._id);
       let notes = [...state.notes];
       notes.push(payload.data);
       return { ...state, notes: notes, trash: trashNotes };
 
     case ActionTypes.DELETE:
       let deleteNote = [...state.trash];
-      deleteNote = deleteNote.filter((notes) => notes._id != payload.data._id);
+      deleteNote = deleteNote.filter((notes) => notes._id !== payload.data._id);
       return { ...state, trash: deleteNote };
 
     case ActionTypes.VIEW:

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AppDrawer from "../component/AppDrawer";
 import Appbar from "../component/Appbar";
 import Note from "../component/Note";

@@ -20,7 +20,7 @@ export default function CreateNote() {
     display: "flex",
     flexWrap: "wrap",
     width: "600px",
-    height: 130,
+    minHeight: 130,
     borderRadius:8
   };
   const styleInput = {
@@ -55,6 +55,7 @@ export default function CreateNote() {
       .postNotes(data)
       .then((response) => {
         console.log(response);
+        setNote(initialNote);
         dispatch(postNewNote(response.data));
       })
       .catch((e) => {
@@ -78,7 +79,7 @@ export default function CreateNote() {
             type="title"
             name="title"
             variant="standard"
-            style={{ marginLeft: "15px" , fontWeight:"600"}}
+            style={{ paddingLeft: "15px" , fontWeight:"600"}}
             fullWidth
             onClick={() => {
               setPaperWidth(styleInputOnClick);
@@ -96,8 +97,9 @@ export default function CreateNote() {
                 value={note.title}
                 onChange={handleNote}
                 variant="standard"
-                style={{ marginLeft: "15px", marginTop: "7px" ,fontWeight:"600"}}
+                style={{ paddingLeft: "15px", marginTop: "7px" ,fontWeight:"600"}}
                 fullWidth
+                multiline
               />
               <InputBase
                 id="content"
@@ -107,8 +109,9 @@ export default function CreateNote() {
                 name="content"
                 value={note.content}
                 onChange={handleNote}
-                style={{ marginLeft: "15px", marginTop: "10px" }}
+                style={{ paddingLeft: "15px", marginTop: "10px" }}
                 fullWidth
+                multiline
                 autoFocus
               />
             </Grid>

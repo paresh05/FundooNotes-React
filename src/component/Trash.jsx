@@ -85,7 +85,7 @@ export default function Trash() {
             }}
           >
             <CardContent>
-              <Typography variant="h6" gutterBottom component="div">
+              <Typography noWrap variant="h6" gutterBottom component="div">
                 {note.title}
               </Typography>
               <Typography noWrap>{note.content}</Typography>

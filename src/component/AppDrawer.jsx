@@ -80,7 +80,7 @@ export default function AppDrawer(props) {
               button
               key={text}
               onClick={() => {
-                text == "Notes"
+                text === "Notes"
                   ? props.handleTitle("FundooNotes")
                   : props.handleTitle(text);
               }}

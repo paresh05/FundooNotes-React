@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,9 +17,13 @@ import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import ViewAgendaOutlinedIcon from "@mui/icons-material/ViewAgendaOutlined";
 import AppsIcon from "@mui/icons-material/Apps";
 import LightbulbSharpIcon from "@mui/icons-material/LightbulbSharp";
+import Popover from "@mui/material/Popover";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchFilteredNotes, viewMode } from "../actions/noteAction";
+import { Avatar, Button } from "@material-ui/core";
+import { Redirect } from "react-router";
+import { Stack } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -69,7 +73,20 @@ const AppBar = styled(MuiAppBar)(({ theme }) => ({
 
 export default function Appbar(props) {
   const [input, setInput] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [logout, setLogout] = useState(false);
   const dispatch = useDispatch();
+  let name = localStorage.getItem("name");
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   const handleInput = (event) => {
     setInput(event.target.value);
@@ -79,7 +96,6 @@ export default function Appbar(props) {
   const handleView = () => {
     dispatch(viewMode(!view));
   };
-
   const notes = useSelector((state) => state.allNotes.notes);
 
   const filterNotes = (input) => {
@@ -88,7 +104,10 @@ export default function Appbar(props) {
     });
     dispatch(fetchFilteredNotes(filtered));
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setLogout(true);
+  };
   useEffect(() => {
     filterNotes(input);
   }, [input, notes]);
@@ -147,18 +166,26 @@ export default function Appbar(props) {
             >
               <SettingsOutlinedIcon />
             </IconButton>
+            <Stack spacing={2} direction="row">
             <IconButton size="large" color="inherit">
               <AppsIcon />
             </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-haspopup="true"
-              color="inherit"
+            <Avatar style={{ background:"black",width: 30, height: 30, marginTop:"8px"}} onClick={handleClick}>
+            {name}
+            </Avatar>
+            </Stack>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
             >
-              <AccountCircle />
-            </IconButton>
+              <Button onClick={handleLogout}>Logout</Button>
+            </Popover>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -171,6 +198,7 @@ export default function Appbar(props) {
             </IconButton>
           </Box>
         </Toolbar>
+        {logout ? <Redirect to="/" /> : null}
       </AppBar>
     </Box>
   );

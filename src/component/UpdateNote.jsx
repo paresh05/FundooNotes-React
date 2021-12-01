@@ -6,10 +6,14 @@ import {
   DialogTitle,
   Button,
 } from "@mui/material";
+import CardMedia from "@mui/material/CardMedia";
 import InputBase from "@mui/material/InputBase";
 import userConnect from "../service/notesApi";
 import { useDispatch } from "react-redux";
 import { updateNote } from "../actions/noteAction";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import { CardActionArea } from "@material-ui/core";
 
 export default function UpdateNote(props) {
   const dispatch = useDispatch();
@@ -19,6 +23,7 @@ export default function UpdateNote(props) {
   };
   const [note, setNote] = React.useState(initialNote);
   const [open, setOpen] = React.useState(true);
+  const [image, setImage] = React.useState(false);
   const handleUpdate = () => {
     setOpen(false);
     props.handleSetUpdate(props.index);
@@ -29,6 +34,7 @@ export default function UpdateNote(props) {
       userId: props.note.userId,
       color: props.note.color,
       isTrash: false,
+      image: props.note.image,
     };
     console.log(data);
     userConnect
@@ -40,7 +46,9 @@ export default function UpdateNote(props) {
         console.log(e);
       });
   };
-
+  const handleDelImage = () => {
+    setImage(true);
+  };
   const handleNote = (event) => {
     let { name, value } = event.target;
     setNote((prevState) => ({
@@ -55,6 +63,23 @@ export default function UpdateNote(props) {
   return (
     <>
       <Dialog open={open} onClose={handleClose} fullWidth>
+        {props.note.image !== "" ? (
+          <CardActionArea>
+          <CardMedia
+            component="img"
+            alt="images"
+            height="250"
+            image={`http://localhost:3001/images/${props.note.image}`}
+            onMouseOver={handleDelImage}
+            onMouseLeave={() => {
+              setImage(false);
+            }}
+          />
+             <IconButton size="large">
+              <DeleteIcon />
+            </IconButton>
+          </CardActionArea>
+        ) : null}
         <DialogTitle sx={{ bgcolor: props.note.color }}>
           <InputBase
             id="title"

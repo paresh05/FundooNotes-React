@@ -54,8 +54,6 @@ const deleteNotes = (data) => {
 };
 
 const updateNotes= (data) => {
-  console.log("service");
-  console.log(data);
   let reqObj = {
     headers: {
       Authorization: localStorage.getItem("token"),
@@ -72,4 +70,23 @@ const updateNotes= (data) => {
       throw err;
     });
 };
-export default { getNotes, postNotes, deleteNotes, updateNotes};
+
+const postImage= (data) => {
+  let reqObj = {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+    url: "http://localhost:3001/upload-image",
+    data: data,
+  };
+  return axiosPost
+    .apiPost(reqObj)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export default { getNotes, postNotes, deleteNotes, updateNotes, postImage};
