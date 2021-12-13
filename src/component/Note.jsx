@@ -86,7 +86,7 @@ export default function Note() {
     <Grid
       container
       spacing={2}
-      style={{ marginTop: "15px", paddingLeft: "150px" }}
+      style={{ marginTop: "25px", paddingLeft: "150px" }}
     >
       {myNote.map((note, index) => (
         <Grid item xs={item} align="center">
@@ -135,7 +135,15 @@ export default function Note() {
               >
                 {note.title}
               </Typography>
-              <Typography style={{height:((note.image !== "") ?"20px":"161px"), overflow:"hidden"}}>{note.content}</Typography>
+              <Typography
+                style={{
+                  height: note.image !== "" ? "20px" : "161px",
+                  overflow: "hidden",
+                  fontSize: "0.93rem",
+                }}
+              >
+                {note.content}
+              </Typography>
             </CardContent>
             {hover[index] ? (
               <NoteIcons

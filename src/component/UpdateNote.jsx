@@ -75,9 +75,6 @@ export default function UpdateNote(props) {
               setImage(false);
             }}
           />
-             <IconButton size="large">
-              <DeleteIcon />
-            </IconButton>
           </CardActionArea>
         ) : null}
         <DialogTitle sx={{ bgcolor: props.note.color }}>

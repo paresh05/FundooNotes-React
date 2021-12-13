@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { useSelector } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import CardMedia from "@mui/material/CardMedia";
 import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
 import { IconButton } from "@mui/material";
 import userConnect from "../service/notesApi";
@@ -20,6 +21,8 @@ export default function Trash() {
       content: note.content,
       _id: note._id,
       userId: note.userId,
+      color:note.color,
+      image:note.image,
       isTrash: false,
     };
     userConnect
@@ -37,6 +40,8 @@ export default function Trash() {
       content: note.content,
       _id: note._id,
       userId: note.userId,
+      color:note.color,
+      image:note.image,
       isTrash: true,
     };
     userConnect
@@ -52,8 +57,8 @@ export default function Trash() {
   return (
     <Grid
       container
-      spacing={4}
-      style={{ marginTop: "85px", marginLeft: "15px" }}
+      spacing={2}
+      style={{ marginTop: "85px", paddingLeft: "150px"}}
     >
       <Grid
         item
@@ -66,15 +71,15 @@ export default function Trash() {
         </Typography>
       </Grid>
       {myNote.map((note, index) => (
-        <Grid item style={{ marginLeft: "30px" }}>
+        <Grid item style={{ marginLeft: "30px" }} align="center">
           <Card
             variant={hover[index] ? "elevation" : "outlined"}
             elevation={5}
             sx={{
-              //bgcolor: note.color,
+              bgcolor: note.color,
               width: 240,
-              height: 130,
-              borderRadius: "5%",
+              height: 270,
+              borderRadius: 2,
             }}
             key={index}
             onMouseEnter={() => {
@@ -84,11 +89,19 @@ export default function Trash() {
               setHover({ [index]: false });
             }}
           >
+            {note.image !== "" ? (
+              <CardMedia
+                component="img"
+                alt="images"
+                height="140"
+                image={`http://localhost:3001/images/${note.image}`}
+              />
+            ) : null}
             <CardContent>
               <Typography noWrap variant="h6" gutterBottom component="div">
                 {note.title}
               </Typography>
-              <Typography noWrap>{note.content}</Typography>
+              <Typography style={{height:((note.image !== "") ?"20px":"161px"), overflow:"hidden",fontSize: "0.93rem"}}>{note.content}</Typography>
             </CardContent>
             {hover[index] ? (
               <Grid align="center">
