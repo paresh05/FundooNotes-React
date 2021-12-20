@@ -14,7 +14,6 @@ import RainbowText from "react-rainbow-text";
 import { createUserSchema } from "../component/Validation";
 import logo from "../assets/Logo.PNG";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import "../styles/createUser.css"
 export class CreateUser extends React.Component {
   constructor(props) {
     super(props);
@@ -48,6 +47,13 @@ export class CreateUser extends React.Component {
   toggleShow = () => {
     this.setState({ hidden: !this.state.hidden });
   };
+  paperStyle = {
+    padding: "10px",
+    height:"70%",
+    width: "80%",
+    margin:"3% auto",
+    maxWidth: "750px",
+    }
 
   gridStyle = {
     marginLeft: "30px ",
@@ -80,7 +86,7 @@ export class CreateUser extends React.Component {
     return (
       <div>
         <Grid>
-          <Paper elevation={10} className="paperStyle">
+          <Paper elevation={10} style={this.paperStyle}>
             <Grid container>
               <Grid item container xs={8} style={this.gridStyle} spacing={1}>
                 <Grid item xs={12}>
