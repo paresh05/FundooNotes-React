@@ -14,7 +14,7 @@ import RainbowText from "react-rainbow-text";
 import { createUserSchema } from "../component/Validation";
 import logo from "../assets/Logo.PNG";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import "../styles/createUser.css";
+import "../styles/createUser.css"
 export class CreateUser extends React.Component {
   constructor(props) {
     super(props);
