@@ -3,7 +3,7 @@ import axiosPost from "../helper/axios";
 const register = (data) => {
   let reqObj = {
     data: data,
-    url: "http://localhost:3001/users",
+    url: "https://fundoonotesbe.herokuapp.com/users",
     headers: {
       "Content-type": "application/json",
     },
@@ -21,7 +21,7 @@ const register = (data) => {
 const login = (data) => {
   let reqObj = {
     data: data,
-    url: "http://localhost:3001/users/login",
+    url: "https://fundoonotesbe.herokuapp.com/users/login",
     headers: {
       "Content-type": "application/json",
     },
@@ -39,7 +39,7 @@ const login = (data) => {
 const forgotPassword = (data) => {
   let reqObj = {
     data: data,
-    url: "http://localhost:3001/users/login/forgotPassword",
+    url: "https://fundoonotesbe.herokuapp.com/users/login/forgotPassword",
     headers: {
       "Content-type": "application/json",
     },
@@ -57,7 +57,7 @@ const forgotPassword = (data) => {
 const resetPassword = (data,token) => {
   let reqObj = {
     data: data,
-    url: "http://localhost:3001/users/login/reset/"+token,
+    url: "https://fundoonotesbe.herokuapp.com/users/login/reset/"+token,
     headers: {
       "Content-type": "application/json",
     },
@@ -80,7 +80,7 @@ const getNotes= () => {
         "Content-type": "application/json",
       },
     },
-    url: "http://localhost:3001/notes",
+    url: "https://fundoonotesbe.herokuapp.com/notes",
   };
   return axiosPost
     .apiGet(reqObj)
