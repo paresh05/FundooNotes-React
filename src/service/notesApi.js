@@ -5,7 +5,7 @@ const getNotes = () => {
     headers: {
       Authorization: localStorage.getItem("token"),
     },
-    url: "http://localhost:3001/notes",
+    url: "https://fundoonotesbe.herokuapp.com/notes",
   };
   return axiosPost
     .apiGet(reqObj)
@@ -22,7 +22,7 @@ const postNotes = (data) => {
     headers: {
       Authorization: localStorage.getItem("token"),
     },
-    url: "http://localhost:3001/notes",
+    url: "https://fundoonotesbe.herokuapp.com/notes",
     data: data,
   };
   return axiosPost
@@ -40,7 +40,7 @@ const deleteNotes = (data) => {
     headers: {
       Authorization: localStorage.getItem("token"),
     },
-    url: "http://localhost:3001/notes/" + data._id,
+    url: "https://fundoonotesbe.herokuapp.com/notes/" + data._id,
     data: data,
   };
   return axiosPost
@@ -58,7 +58,7 @@ const updateNotes= (data) => {
     headers: {
       Authorization: localStorage.getItem("token"),
     },
-    url: "http://localhost:3001/notes/"+data._id,
+    url: "https://fundoonotesbe.herokuapp.com/notes/"+data._id,
     data: data,
   };
   return axiosPost
@@ -76,7 +76,7 @@ const postImage= (data) => {
     headers: {
       Authorization: localStorage.getItem("token"),
     },
-    url: "http://localhost:3001/upload-image",
+    url: "https://fundoonotesbe.herokuapp.com/upload-image",
     data: data,
   };
   return axiosPost
